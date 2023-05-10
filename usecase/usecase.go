@@ -1,14 +1,37 @@
-package main
+package usecase
 
 import (
+	"errors"
 	"fmt"
 	"io/fs"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
-func main() {
+func BuildCache() error {
+	cacheTime := time.Now()
+	// check whether files will changed
+	fileInfo, err := os.Stat("path")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	modifyTime := fileInfo.ModTime()
+
+	// if not changed, return
+	if modifyTime.Before(cacheTime) {
+		return nil
+	}
+	// build cache
+
+	// record the cache time
+	return nil
+}
+
+func QueryByTag(tag string) ([]string, error) {
 	rootPath := "./"
 
 	filesPath := []string{}
@@ -40,10 +63,10 @@ func main() {
 		}
 		fileContent := string(content)
 		lines := strings.Split(fileContent, "\n")
-		if len(lines) >= 2 {
-			secondLine := strings.TrimSpace(lines[1])
-			if strings.HasPrefix(secondLine, "/* $tag:") && strings.HasSuffix(secondLine, "*/") {
-				tagsLine := strings.TrimPrefix(secondLine, "/* $tag:")
+		if len(lines) >= 3 {
+			thirdLine := strings.TrimSpace(lines[2])
+			if strings.HasPrefix(thirdLine, "/* $tag:") && strings.HasSuffix(thirdLine, "*/") {
+				tagsLine := strings.TrimPrefix(thirdLine, "/* $tag:")
 				tagsLine = strings.TrimSuffix(tagsLine, "*/")
 				tagsLine = strings.TrimSpace(tagsLine)
 				tags := strings.Split(tagsLine, ",")
@@ -59,4 +82,15 @@ func main() {
 
 	fmt.Println(tagFiles)
 
+	fmt.Println(tagFiles["abc"])
+
+	return []string{}, nil
+}
+
+func QueryByExpression(expression string) ([]string, error) {
+	return []string{}, errors.New("not implemented")
+}
+
+func ListTags() ([]string, error) {
+	return []string{}, errors.New("not implemented")
 }

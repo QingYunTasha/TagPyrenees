@@ -1,0 +1,9 @@
+package main
+
+import (
+	"tagpyrenees/cmd"
+)
+
+func main() {
+	cmd.Execute()
+}
