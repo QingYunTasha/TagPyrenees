@@ -2,7 +2,7 @@
 TagPyrenees is a tag system use to find the files which contain the specific tag
 
 ## Originally
-I implemented lots of codes with DSA project, each algorithm or data structure usually contains one or more algorithm or data structure.
+I implemented lots of codes in DSA repository, each algorithm or data structure usually contains one or more algorithm or data structure.
 Therefore, if I want to know which have some tag for learning. It must need a tag mechanism to help me to know. That is, this project borned...
 
 ## How to use
