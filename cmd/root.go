@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"tagpyrenees/usecase"
+
 	"github.com/ory/viper"
 	"github.com/spf13/cobra"
 )
@@ -14,26 +16,44 @@ var (
 
 	rootCmd = &cobra.Command{
 		Use:   "tagpyrenees",
-		Short: "TagPyrenees is a command for tag system",
-		Long: ` A command for tag system in Go.
+		Short: "The command-line tool for tagPyrenees system",
+		Long: ` The command-line tool for tagPyrenees system
+		Complete documentation is available at https://github.com/QingYunTasha/TagPyrenees`,
+	}
+
+	queryCmd = &cobra.Command{
+		Use:   "query",
+		Short: "query by the tag",
+		Long: ` query by the tag
 				Complete documentation is available at https://github.com/QingYunTasha/TagPyrenees`,
 		Run: func(cmd *cobra.Command, args []string) {
-			// Do Stuff Here
+			usecase.QueryByTag(cmd.Flag("tag").Value.String())
+		},
+	}
+
+	listTagsCmd = &cobra.Command{
+		Use:   "listtags",
+		Short: "list all tags",
+		Run: func(cmd *cobra.Command, args []string) {
+			err := usecase.ListTags()
+			if err != nil {
+				fmt.Println(err.Error())
+			}
 		},
 	}
 )
 
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
+func Execute() error {
+	return rootCmd.Execute()
 }
 
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.AddCommand()
+	queryCmd.Flags().StringP("tag", "t", "", "the tag to query")
+
+	rootCmd.AddCommand(queryCmd)
+	rootCmd.AddCommand(listTagsCmd)
 }
 
 func initConfig() {

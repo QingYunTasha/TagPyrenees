@@ -1,11 +1,11 @@
 package main
 
-/* $tag: abc,cba,aa */
+/* @tag: abc,cba,aa */
 
 import (
-	"tagpyrenees/usecase"
+	"tagpyrenees/cmd"
 )
 
 func main() {
-	usecase.QueryByTag("abc")
+	cmd.Execute()
 }
