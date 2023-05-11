@@ -30,13 +30,15 @@ var (
 		Args: cobra.ExactArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
 			startTime := time.Now()
+
 			path := args[0]
 			tag := args[1]
 			err := usecase.QueryByTag(path, tag)
 			if err != nil {
 				fmt.Println(err.Error())
 			}
-			fmt.Println(time.Since(startTime))
+
+			fmt.Println("execute time: " + time.Since(startTime).String())
 		},
 	}
 
@@ -46,12 +48,14 @@ var (
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			startTime := time.Now()
+
 			path := args[0]
 			err := usecase.ListTags(path)
 			if err != nil {
 				fmt.Println(err.Error())
 			}
-			fmt.Println(time.Since(startTime))
+
+			fmt.Println("execute time: " + time.Since(startTime).String())
 		},
 	}
 )
