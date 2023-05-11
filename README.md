@@ -7,7 +7,7 @@ Therefore, if I want to know which have some tag for learning. It must need a ta
 
 ## How to use
 1. Add tags to your file's third line like: /* @tags: sort,stack,binarytree */  (don't use any space in your tag name)
-![image](https://github.com/QingYunTasha/TagPyrenees/assets/100518681/60d42bef-681e-4843-acb3-2eb8401f53dc)
+![image](https://github.com/QingYunTasha/TagPyrenees/assets/100518681/5a4e26ba-e699-4d8e-9531-88a9b7530686)
 2. run tagpyrenees.exe(or directly run the source code) to do what you want
 ```
 >>> ./tagpyrenees.exe query . tree
