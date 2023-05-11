@@ -10,9 +10,9 @@ Therefore, if I want to know which have some tag for learning. It must need a ta
 ![image](https://github.com/QingYunTasha/TagPyrenees/assets/100518681/60d42bef-681e-4843-acb3-2eb8401f53dc)
 3. run command to do what you want
 ```
->>> go run . query --tag=sort
+>>> go run . query ./ tree
 [binarytree.go]
->>> go run . listtags
+>>> go run . listtags ./
 [sort stack binarytree]
 ```
 
