@@ -22,15 +22,15 @@ var (
 	}
 
 	queryCmd = &cobra.Command{
-		Use:   "query [address] [tag]",
-		Short: "query by the tag",
+		Use:   "query [path] [tag]",
+		Short: "query by the tag recursive the given path and subpath",
 		Long: ` query by the tag
 				Complete documentation is available at https://github.com/QingYunTasha/TagPyrenees`,
 		Args: cobra.ExactArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
-			address := args[0]
+			path := args[0]
 			tag := args[1]
-			err := usecase.QueryByTag(address, tag)
+			err := usecase.QueryByTag(path, tag)
 			if err != nil {
 				fmt.Println(err.Error())
 			}
@@ -38,12 +38,12 @@ var (
 	}
 
 	listTagsCmd = &cobra.Command{
-		Use:   "listtags [address]",
-		Short: "list all tags",
+		Use:   "listtags [path]",
+		Short: "list all tags recursive the given path and subpath",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			address := args[0]
-			err := usecase.ListTags(address)
+			path := args[0]
+			err := usecase.ListTags(path)
 			if err != nil {
 				fmt.Println(err.Error())
 			}

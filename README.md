@@ -1,5 +1,5 @@
 # TagPyrenees
-This is a tag system
+TagPyrenees is a tag system use to find the files which contain the specific tag
 
 ## Originally
 I implemented lots of codes with DSA project, each algorithm or data structure usually contains one or more algorithm or data structure.
