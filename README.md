@@ -7,7 +7,8 @@ Therefore, if I want to know which have some tag for learning. It must need a ta
 
 ## How to use
 1. Add tags to your file's third line like: /* @tag: sort,stack,binarytree */  (don't use any space in your tag name)
-2. run command to do what you want
+![image](https://github.com/QingYunTasha/TagPyrenees/assets/100518681/60d42bef-681e-4843-acb3-2eb8401f53dc)
+3. run command to do what you want
 ```
 >>> go run . query --tag=sort
 [binarytree.go]
