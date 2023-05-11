@@ -1,6 +1,6 @@
 package main
 
-/* @tag: abc,cba,aa */
+/* @tags: abc,cba,aa */
 
 import (
 	"tagpyrenees/cmd"

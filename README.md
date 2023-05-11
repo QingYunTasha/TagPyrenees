@@ -6,7 +6,7 @@ I implemented lots of codes in DSA repository, each algorithm or data structure 
 Therefore, if I want to know which have some tag for learning. It must need a tag mechanism to help me to know. That is, this project borned...
 
 ## How to use
-1. Add tags to your file's third line like: /* @tag: sort,stack,binarytree */  (don't use any space in your tag name)
+1. Add tags to your file's third line like: /* @tags: sort,stack,binarytree */  (don't use any space in your tag name)
 ![image](https://github.com/QingYunTasha/TagPyrenees/assets/100518681/60d42bef-681e-4843-acb3-2eb8401f53dc)
 2. run tagpyrenees.exe(or directly run the source code) to do what you want
 ```
