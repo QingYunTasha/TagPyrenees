@@ -22,20 +22,28 @@ var (
 	}
 
 	queryCmd = &cobra.Command{
-		Use:   "query",
+		Use:   "query [address] [tag]",
 		Short: "query by the tag",
 		Long: ` query by the tag
 				Complete documentation is available at https://github.com/QingYunTasha/TagPyrenees`,
+		Args: cobra.ExactArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
-			usecase.QueryByTag(cmd.Flag("tag").Value.String())
+			address := args[0]
+			tag := args[1]
+			err := usecase.QueryByTag(address, tag)
+			if err != nil {
+				fmt.Println(err.Error())
+			}
 		},
 	}
 
 	listTagsCmd = &cobra.Command{
-		Use:   "listtags",
+		Use:   "listtags [address]",
 		Short: "list all tags",
+		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			err := usecase.ListTags()
+			address := args[0]
+			err := usecase.ListTags(address)
 			if err != nil {
 				fmt.Println(err.Error())
 			}
@@ -50,7 +58,8 @@ func Execute() error {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	queryCmd.Flags().StringP("tag", "t", "", "the tag to query")
+	//queryCmd.Flags().StringP("tag", "t", "", "the tag to query")
+	queryCmd.PersistentFlags()
 
 	rootCmd.AddCommand(queryCmd)
 	rootCmd.AddCommand(listTagsCmd)
