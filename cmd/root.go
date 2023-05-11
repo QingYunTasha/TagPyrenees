@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"tagpyrenees/usecase"
 
@@ -28,12 +29,14 @@ var (
 				Complete documentation is available at https://github.com/QingYunTasha/TagPyrenees`,
 		Args: cobra.ExactArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {
+			startTime := time.Now()
 			path := args[0]
 			tag := args[1]
 			err := usecase.QueryByTag(path, tag)
 			if err != nil {
 				fmt.Println(err.Error())
 			}
+			fmt.Println(time.Since(startTime))
 		},
 	}
 
@@ -42,11 +45,13 @@ var (
 		Short: "list all tags recursive the given path and subpath",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
+			startTime := time.Now()
 			path := args[0]
 			err := usecase.ListTags(path)
 			if err != nil {
 				fmt.Println(err.Error())
 			}
+			fmt.Println(time.Since(startTime))
 		},
 	}
 )
@@ -57,9 +62,6 @@ func Execute() error {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-
-	//queryCmd.Flags().StringP("tag", "t", "", "the tag to query")
-	queryCmd.PersistentFlags()
 
 	rootCmd.AddCommand(queryCmd)
 	rootCmd.AddCommand(listTagsCmd)
