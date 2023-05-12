@@ -31,7 +31,7 @@ func BuildCache() error {
 	return nil
 }
 
-func QueryByTag(address, tag string) error {
+func QueryByTag(path, tag string) error {
 	if tagFiles, ok, _ := readCache(); ok {
 		if files, ok := tagFiles[tag]; !ok {
 			return fmt.Errorf("tag %s not found", tag)
@@ -41,7 +41,7 @@ func QueryByTag(address, tag string) error {
 		}
 	}
 
-	rootPath := address
+	rootPath := path
 
 	filesPath := []string{}
 
@@ -96,11 +96,60 @@ func QueryByTag(address, tag string) error {
 	return nil
 }
 
-func QueryByExpression(expression string) ([]string, error) {
-	return []string{}, errors.New("not implemented")
+func QueryByExpression(path, expression string) error {
+	// '', -
+	// 'divide and conquer' AND tree
+	expression = strings.TrimPrefix(expression, " ")
+	expression = strings.TrimSuffix(expression, " ")
+
+	tokens := []string{}
+
+	temp := []byte{}
+	for i := 0; i < len(expression); i++ {
+		c := expression[i]
+		switch c {
+		case '\'':
+			i++
+			for i < len(expression) {
+				if expression[i] != '\'' {
+					temp = append(temp, expression[i])
+				} else {
+					tokens = append(tokens, string(temp))
+					temp = temp[:0]
+					i++
+					break
+				}
+				i++
+			}
+		case ' ':
+			tokens = append(tokens, string(temp))
+			temp = temp[:0]
+		default:
+			temp = append(temp, c)
+		}
+	}
+	tokens = append(tokens, string(temp))
+
+	for _, t := range tokens {
+		fmt.Printf("%s,", t)
+	}
+	positiveTags, negativeTags := []string{}, []string{}
+	for _, tag := range tokens {
+		if tag[0] == '-' {
+			negativeTags = append(negativeTags, tag[1:])
+		} else {
+			positiveTags = append(positiveTags, tag)
+		}
+	}
+
+	fmt.Println()
+	fmt.Println(positiveTags, negativeTags)
+	fmt.Println()
+
+	return nil
 }
 
-func ListTags(address string) error {
+func ListTags(path string) error {
 	if tagFiles, ok, _ := readCache(); ok {
 		tags := []string{}
 		for key := range tagFiles {
@@ -110,7 +159,7 @@ func ListTags(address string) error {
 		return nil
 	}
 
-	rootPath := address
+	rootPath := path
 
 	filesPath := []string{}
 
@@ -170,6 +219,14 @@ func ListTags(address string) error {
 	return nil
 }
 
+func writeTagsToFile(tags []string, path string) {
+
+}
+
 func readCache() (map[string][]string, bool, error) {
 	return map[string][]string{}, false, errors.New("not implemented")
 }
+
+// Tag Statistics/Analytics: Providing insights and analytics related to tag usage, such as popular tags, tag frequency, or tag-based trends.
+// Tag Synonyms: Supporting the ability to define synonyms for tags, so that searching or filtering with a synonym will retrieve items with the associated tag.
+// Tag Relationships: Allowing users to define relationships between tags, such as parent-child relationships, synonyms, or related tags, to enhance searchability and discoverability.
