@@ -146,8 +146,8 @@ func ListTags(address string) error {
 		}
 
 		thirdLine := strings.TrimSpace(lines[2])
-		if strings.HasPrefix(thirdLine, "/* @tag:") && strings.HasSuffix(thirdLine, "*/") {
-			tagsLine := strings.TrimPrefix(thirdLine, "/* @tag:")
+		if strings.HasPrefix(thirdLine, "/* @tags:") && strings.HasSuffix(thirdLine, "*/") {
+			tagsLine := strings.TrimPrefix(thirdLine, "/* @tags:")
 			tagsLine = strings.TrimSuffix(tagsLine, "*/")
 			tagsLine = strings.TrimSpace(tagsLine)
 			tags := strings.Split(tagsLine, ",")
@@ -162,8 +162,11 @@ func ListTags(address string) error {
 		tags = append(tags, key)
 	}
 
-	fmt.Println(tags)
+	for _, tag := range tags {
+		fmt.Printf("%s,", tag)
+	}
 
+	fmt.Println()
 	return nil
 }
 

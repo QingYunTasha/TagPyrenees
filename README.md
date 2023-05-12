@@ -16,6 +16,10 @@ Therefore, if I want to know which have some tag for learning. It must need a ta
 [sort stack binarytree]
 ```
 
+## How to test
+You can use my another project DSA to test
+Reference: https://github.com/QingYunTasha/DSA
+
 ## Why use "Pyrenees" as project name?
 ![image](https://github.com/QingYunTasha/TagPyrenees/assets/100518681/150bdeef-09bd-4be3-83ab-345e45058966)
 
