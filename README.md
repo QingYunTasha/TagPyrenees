@@ -18,7 +18,7 @@ Therefore, if I want to know which have some tag for learning. It must need a ta
 ![image](https://github.com/QingYunTasha/TagPyrenees/assets/100518681/5a4e26ba-e699-4d8e-9531-88a9b7530686)
 2. run tagpyrenees.exe(or directly run the source code) to do what you want
 ```
->>> ./tagpyrenees.exe query . tree
+>>> ./tagpyrenees.exe query ./DSA "tree sort -abc" -e
 [binarytree.go]
 >>> ./tagpyrenees.exe listtags .
 [sort stack binarytree]
