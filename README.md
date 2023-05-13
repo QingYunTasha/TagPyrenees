@@ -2,7 +2,12 @@
 TagPyrenees is a tag system use to find the files which contain the specific tag
 
 ## Features
-- Feature 1
+- query files by tag
+- query files by expression
+  - " ": AND
+  - "-tag": negative tag
+  - "'ta g'": the phrase of tag which contains space
+- list all tags 
 
 ## Originally
 I implemented lots of codes in DSA repository, each algorithm or data structure usually contains one or more algorithm or data structure.
