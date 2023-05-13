@@ -22,8 +22,8 @@ var (
 		Complete documentation is available at https://github.com/QingYunTasha/TagPyrenees`,
 	}
 
-	queryByTagCmd = &cobra.Command{
-		Use:   "query [path] [tag]",
+	queryCmd = &cobra.Command{
+		Use:   "query [path] [tag or expression]",
 		Short: "query by the tag recursive the given path and subpath",
 		Long: ` query by the tag
 				Complete documentation is available at https://github.com/QingYunTasha/TagPyrenees`,
@@ -31,9 +31,13 @@ var (
 		Run: func(cmd *cobra.Command, args []string) {
 			startTime := time.Now()
 
-			path := args[0]
-			tag := args[1]
-			err := usecase.QueryByTag(path, tag)
+			var err error
+			if cmd.Flags().Lookup("expression").Value.String() == "true" {
+				err = usecase.QueryByExpression(args[0], args[1])
+			} else {
+				err = usecase.QueryByTag(args[0], args[1])
+			}
+
 			if err != nil {
 				fmt.Println(err.Error())
 			}
@@ -58,24 +62,6 @@ var (
 			fmt.Println("execute time: " + time.Since(startTime).String())
 		},
 	}
-
-	queryByExpressionCmd = &cobra.Command{
-		Use:   "querybyexp [path] [expression]",
-		Short: "query by the expression recursive the given path and subpath",
-		Args:  cobra.ExactArgs(2),
-		Run: func(cmd *cobra.Command, args []string) {
-			startTime := time.Now()
-
-			path := args[0]
-			exp := args[1]
-			err := usecase.QueryByExpression(path, exp)
-			if err != nil {
-				fmt.Println(err.Error())
-			}
-
-			fmt.Println("execute time: " + time.Since(startTime).String())
-		},
-	}
 )
 
 func Execute() error {
@@ -85,9 +71,10 @@ func Execute() error {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.AddCommand(queryByTagCmd)
+	queryCmd.PersistentFlags().BoolP("expression", "e", false, "use expression to search for tags")
+
+	rootCmd.AddCommand(queryCmd)
 	rootCmd.AddCommand(listTagsCmd)
-	rootCmd.AddCommand(queryByExpressionCmd)
 }
 
 func initConfig() {

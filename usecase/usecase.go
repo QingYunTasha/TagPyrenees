@@ -41,22 +41,8 @@ func QueryByTag(path, tag string) error {
 		}
 	}
 
-	rootPath := path
-
-	filesPath := []string{}
-
 	// Walk through all files and append path which contains '.go'
-	err := filepath.Walk(rootPath, func(path string, info fs.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
-			filesPath = append(filesPath, path)
-		}
-
-		return nil
-	})
+	filesPath, err := getFilesPath(path)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -159,22 +145,8 @@ func ListTags(path string) error {
 		return nil
 	}
 
-	rootPath := path
-
-	filesPath := []string{}
-
 	// Walk through all files and append path which contains '.go'
-	err := filepath.Walk(rootPath, func(path string, info fs.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
-			filesPath = append(filesPath, path)
-		}
-
-		return nil
-	})
+	filesPath, err := getFilesPath(path)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -225,6 +197,25 @@ func writeTagsToFile(tags []string, path string) {
 
 func readCache() (map[string][]string, bool, error) {
 	return map[string][]string{}, false, errors.New("not implemented")
+}
+
+func getFilesPath(path string) ([]string, error) {
+	filesPath := []string{}
+
+	// Walk through all files and append path which contains '.go'
+	err := filepath.Walk(path, func(path string, info fs.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
+			filesPath = append(filesPath, path)
+		}
+
+		return nil
+	})
+
+	return filesPath, err
 }
 
 // Tag Statistics/Analytics: Providing insights and analytics related to tag usage, such as popular tags, tag frequency, or tag-based trends.
